@@ -1,9 +1,8 @@
-import { useState } from "react";
 import hydraLogo from "@/assets/hydra-logo.png";
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const RadixConnectButton = "radix-connect-button" as any;
 
+const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 backdrop-blur-xl bg-background/80">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
@@ -34,10 +33,8 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* Connect Wallet */}
-        <button className="hydra-gradient-orange text-accent-foreground px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]">
-          Connect Wallet
-        </button>
+        {/* Radix Connect Button */}
+        <RadixConnectButton />
       </div>
     </header>
   );

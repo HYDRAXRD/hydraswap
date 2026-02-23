@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, Settings, ChevronDown, Wallet, RefreshCw, Info } from "lucide-react";
+import { ArrowDown, Settings, ChevronDown, RefreshCw, Info } from "lucide-react";
+import { useRadixWallet } from "@/hooks/useRadixWallet";
+
+const RadixConnectButton = "radix-connect-button" as any;
 
 const TOKENS = [
   { symbol: "XRD", name: "Radix", icon: "🔵", balance: "1,245.50", price: 0.024 },
@@ -73,6 +76,7 @@ const TokenSelector = ({
 );
 
 const SwapCard = () => {
+  const { connected, accounts, shortenAddress } = useRadixWallet();
   const [fromToken, setFromToken] = useState(TOKENS[0]);
   const [toToken, setToToken] = useState(TOKENS[1]);
   const [fromAmount, setFromAmount] = useState("1,000");
@@ -238,14 +242,19 @@ const SwapCard = () => {
           </div>
 
           {/* Swap Button */}
-          <motion.button
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full mt-4 hydra-gradient-orange text-accent-foreground py-4 rounded-xl font-display font-bold text-base transition-all duration-200 hover:opacity-95 hydra-btn-glow"
-          >
-            <Wallet className="w-4 h-4 inline mr-2 -mt-0.5" />
-            Connect Wallet
-          </motion.button>
+          {connected ? (
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full mt-4 hydra-gradient-cyan text-accent-foreground py-4 rounded-xl font-display font-bold text-base transition-all duration-200 hover:opacity-95 hydra-btn-glow"
+            >
+              Swap
+            </motion.button>
+          ) : (
+            <div className="w-full mt-4 flex justify-center">
+              <RadixConnectButton />
+            </div>
+          )}
         </div>
       </div>
 

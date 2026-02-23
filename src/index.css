@@ -96,12 +96,23 @@
 }
 
 .hydra-gradient-orange {
-  background: linear-gradient(135deg, hsl(30 100% 55%), hsl(15 100% 50%));
+  background: linear-gradient(135deg, hsl(180 80% 45%), hsl(195 100% 50%));
+}
+
+.hydra-gradient-cyan {
+  background: linear-gradient(135deg, hsl(175 85% 40%), hsl(195 100% 55%));
 }
 
 .hydra-btn-glow:hover {
-  box-shadow: 0 0 25px hsl(195 100% 50% / 0.3),
-              0 4px 15px hsl(195 100% 50% / 0.2);
+  box-shadow: 0 0 25px hsl(180 80% 50% / 0.35),
+              0 4px 15px hsl(195 100% 50% / 0.25);
+}
+
+/* Radix Connect Button Styling */
+radix-connect-button {
+  --radix-connect-button-width: auto;
+  --radix-connect-button-height: 40px;
+  --radix-connect-button-border-radius: 12px;
 }
 
 /* Animated background particles */
