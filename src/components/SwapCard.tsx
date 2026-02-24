@@ -2,103 +2,153 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, ChevronDown, Info, Loader2 } from "lucide-react";
 import { useRadixWallet } from "@/hooks/useRadixWallet";
-import { getSwapQuote, TOKEN_ADDRESSES, type SwapQuoteResponse } from "@/lib/astrolescent";
-
-import xrdIcon from "@/assets/tokens/xrd.png";
-import hydraIcon from "@/assets/tokens/hydra.png";
-import ociIcon from "@/assets/tokens/oci.png";
-import astrlIcon from "@/assets/tokens/astrl.png";
-import hugIcon from "@/assets/tokens/hug.png";
+import { getSwapQuote, getTokenList, PREFERRED_SYMBOLS, type SwapQuoteResponse, type AstrolescentToken } from "@/lib/astrolescent";
 
 const RadixConnectButton = "radix-connect-button" as any;
 
-const TOKENS = [
-  { symbol: "XRD", name: "Radix", icon: xrdIcon, address: TOKEN_ADDRESSES.XRD },
-  { symbol: "HYDRA", name: "Hydra", icon: hydraIcon, address: TOKEN_ADDRESSES.HYDRA },
-  { symbol: "OCI", name: "Ociswap", icon: ociIcon, address: TOKEN_ADDRESSES.OCI },
-  { symbol: "ASTRL", name: "Astrolescent", icon: astrlIcon, address: TOKEN_ADDRESSES.ASTRL },
-  { symbol: "HUG", name: "HugCoin", icon: hugIcon, address: TOKEN_ADDRESSES.HUG },
-];
-
-type Token = typeof TOKENS[0];
+interface Token {
+  symbol: string;
+  name: string;
+  icon: string;
+  address: string;
+}
 
 const TokenSelector = ({
   token,
   onSelect,
   isOpen,
   onToggle,
+  tokens,
 }: {
   token: Token;
   onSelect: (t: Token) => void;
   isOpen: boolean;
   onToggle: () => void;
-}) => (
-  <div className="relative">
-    <button
-      onClick={onToggle}
-      className="flex items-center gap-2 bg-secondary hover:bg-secondary/80 px-3 py-2 rounded-xl transition-all duration-200 group"
-    >
-      <img src={token.icon} alt={token.symbol} className="w-5 h-5 rounded-full" />
-      <span className="font-semibold text-foreground text-sm">{token.symbol}</span>
-      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
-    </button>
+  tokens: Token[];
+}) => {
+  const [search, setSearch] = useState("");
+  const filtered = tokens.filter(
+    (t) =>
+      t.symbol.toLowerCase().includes(search.toLowerCase()) ||
+      t.name.toLowerCase().includes(search.toLowerCase())
+  );
 
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -8, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -8, scale: 0.96 }}
-          transition={{ duration: 0.15 }}
-          className="absolute right-0 top-full mt-2 w-56 bg-popover border border-border rounded-xl shadow-2xl overflow-hidden z-50"
-        >
-          <div className="p-2">
-            <input
-              type="text"
-              placeholder="Search token..."
-              className="w-full bg-surface-input border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 mb-1"
-            />
-          </div>
-          <div className="max-h-48 overflow-y-auto">
-            {TOKENS.map((t) => (
-              <button
-                key={t.symbol}
-                onClick={() => {
-                  onSelect(t);
-                  onToggle();
-                }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-secondary/60 transition-colors text-left"
-              >
-                <img src={t.icon} alt={t.symbol} className="w-6 h-6 rounded-full" />
-                <div className="flex-1">
-                  <div className="text-sm font-medium text-foreground">{t.symbol}</div>
-                  <div className="text-xs text-muted-foreground">{t.name}</div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </div>
-);
+  return (
+    <div className="relative">
+      <button
+        onClick={onToggle}
+        className="flex items-center gap-2 bg-secondary hover:bg-secondary/80 px-3 py-2 rounded-xl transition-all duration-200 group"
+      >
+        <img src={token.icon} alt={token.symbol} className="w-5 h-5 rounded-full" />
+        <span className="font-semibold text-foreground text-sm">{token.symbol}</span>
+        <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
+            transition={{ duration: 0.15 }}
+            className="absolute right-0 top-full mt-2 w-56 bg-popover border border-border rounded-xl shadow-2xl overflow-hidden z-50"
+          >
+            <div className="p-2">
+              <input
+                type="text"
+                placeholder="Search token..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full bg-surface-input border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 mb-1"
+              />
+            </div>
+            <div className="max-h-48 overflow-y-auto">
+              {filtered.map((t) => (
+                <button
+                  key={t.address}
+                  onClick={() => {
+                    onSelect(t);
+                    onToggle();
+                    setSearch("");
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-secondary/60 transition-colors text-left"
+                >
+                  <img src={t.icon} alt={t.symbol} className="w-6 h-6 rounded-full" />
+                  <div className="flex-1">
+                    <div className="text-sm font-medium text-foreground">{t.symbol}</div>
+                    <div className="text-xs text-muted-foreground">{t.name}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 const SwapCard = () => {
-  const { connected, accounts, shortenAddress } = useRadixWallet();
-  const [fromToken, setFromToken] = useState(TOKENS[0]);
-  const [toToken, setToToken] = useState(TOKENS[1]);
+  const { connected, accounts } = useRadixWallet();
+  const [tokens, setTokens] = useState<Token[]>([]);
+  const [fromToken, setFromToken] = useState<Token | null>(null);
+  const [toToken, setToToken] = useState<Token | null>(null);
   const [fromAmount, setFromAmount] = useState("");
   const [openSelector, setOpenSelector] = useState<"from" | "to" | null>(null);
   const [quote, setQuote] = useState<SwapQuoteResponse | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingTokens, setLoadingTokens] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Fetch tokens from Astrolescent API
+  useEffect(() => {
+    async function fetchTokens() {
+      try {
+        const apiTokens = await getTokenList();
+        // Map preferred tokens first, then all others
+        const preferred = PREFERRED_SYMBOLS
+          .map((sym) => apiTokens.find((t) => t.symbol.toUpperCase() === sym))
+          .filter(Boolean) as AstrolescentToken[];
+
+        const others = apiTokens.filter(
+          (t) => !PREFERRED_SYMBOLS.includes(t.symbol.toUpperCase())
+        );
+
+        const allTokens = [...preferred, ...others].map((t) => ({
+          symbol: t.symbol,
+          name: t.name,
+          icon: t.iconUrl || t.icon_url,
+          address: t.address,
+        }));
+
+        setTokens(allTokens);
+        if (allTokens.length >= 2) {
+          setFromToken(allTokens[0]);
+          setToToken(allTokens[1]);
+        }
+      } catch (err) {
+        console.error("Failed to load tokens:", err);
+        setError("Failed to load tokens");
+      } finally {
+        setLoadingTokens(false);
+      }
+    }
+    fetchTokens();
+  }, []);
+
+  const PLACEHOLDER_ADDRESS = "account_rdx128y6j78mt0aqv6372evz28hrxp8mn06ccddkr7xppc88hyvynvjdwr";
+
   const fetchQuote = useCallback(async () => {
+    if (!fromToken || !toToken) return;
     const amount = parseFloat(fromAmount.replace(/,/g, ""));
-    if (!amount || amount <= 0 || !connected || accounts.length === 0) {
+    if (!amount || amount <= 0) {
       setQuote(null);
       return;
     }
+
+    const senderAddress = connected && accounts.length > 0
+      ? accounts[0].address
+      : PLACEHOLDER_ADDRESS;
 
     setLoading(true);
     setError(null);
@@ -107,18 +157,18 @@ const SwapCard = () => {
         inputToken: fromToken.address,
         outputToken: toToken.address,
         inputAmount: amount,
-        fromAddress: accounts[0].address,
+        fromAddress: senderAddress,
       });
       setQuote(result);
-    } catch (err) {
-      setError("Failed to fetch quote");
+    } catch (err: any) {
+      console.error("Quote error:", err);
+      setError(err.message || "Failed to fetch quote");
       setQuote(null);
     } finally {
       setLoading(false);
     }
   }, [fromAmount, fromToken, toToken, connected, accounts]);
 
-  // Debounced quote fetch
   useEffect(() => {
     const amount = parseFloat(fromAmount.replace(/,/g, ""));
     if (!amount || amount <= 0) {
@@ -131,9 +181,9 @@ const SwapCard = () => {
   }, [fetchQuote, fromAmount]);
 
   const handleSwapTokens = () => {
-    const tempToken = fromToken;
+    const temp = fromToken;
     setFromToken(toToken);
-    setToToken(tempToken);
+    setToToken(temp);
     setQuote(null);
   };
 
@@ -146,6 +196,14 @@ const SwapCard = () => {
       });
     }
   };
+
+  if (loadingTokens || !fromToken || !toToken) {
+    return (
+      <div className="w-full max-w-[460px] mx-auto flex items-center justify-center py-20">
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      </div>
+    );
+  }
 
   const outputAmount = quote ? quote.outputTokens.toLocaleString(undefined, { maximumFractionDigits: 6 }) : "";
   const priceImpact = quote ? `${quote.priceImpact}%` : "—";
@@ -160,10 +218,8 @@ const SwapCard = () => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="w-full max-w-[460px] mx-auto"
     >
-      {/* Card */}
       <div className="hydra-card-gradient rounded-2xl p-1 hydra-glow">
         <div className="bg-card rounded-[14px] p-5">
-          {/* Header */}
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-display text-lg font-bold text-foreground">Swap</h2>
             <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-lg">
@@ -171,7 +227,6 @@ const SwapCard = () => {
             </span>
           </div>
 
-          {/* From Input */}
           <div className="hydra-input-bg rounded-xl p-4 border border-border/50 hover:border-border transition-colors">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-muted-foreground">From</span>
@@ -189,11 +244,11 @@ const SwapCard = () => {
                 onSelect={setFromToken}
                 isOpen={openSelector === "from"}
                 onToggle={() => setOpenSelector(openSelector === "from" ? null : "from")}
+                tokens={tokens}
               />
             </div>
           </div>
 
-          {/* Swap Arrow */}
           <div className="flex justify-center -my-3 relative z-10">
             <motion.button
               whileHover={{ scale: 1.1, rotate: 180 }}
@@ -205,7 +260,6 @@ const SwapCard = () => {
             </motion.button>
           </div>
 
-          {/* To Input */}
           <div className="hydra-input-bg rounded-xl p-4 border border-border/50 hover:border-border transition-colors">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-muted-foreground">To</span>
@@ -226,11 +280,11 @@ const SwapCard = () => {
                 onSelect={setToToken}
                 isOpen={openSelector === "to"}
                 onToggle={() => setOpenSelector(openSelector === "to" ? null : "to")}
+                tokens={tokens}
               />
             </div>
           </div>
 
-          {/* Rate Info */}
           {quote && (
             <div className="mt-4 bg-surface-input rounded-xl p-3 border border-border/30">
               <div className="flex items-center justify-between text-xs">
@@ -254,7 +308,6 @@ const SwapCard = () => {
             <p className="text-xs text-destructive mt-3 text-center">{error}</p>
           )}
 
-          {/* Swap Button */}
           {connected ? (
             <motion.button
               whileHover={{ scale: 1.01 }}
@@ -273,7 +326,6 @@ const SwapCard = () => {
         </div>
       </div>
 
-      {/* Dynamic Route Info */}
       {quote && quote.routes && quote.routes.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}

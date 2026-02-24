@@ -1,7 +1,6 @@
 // Astrolescent DEX Aggregator API integration
 // Docs: https://docs.astrolescent.com/astrolescent-docs/infrastructure/api
 
-// TODO: Replace with your actual Astrolescent partner API key
 const ASTROLESCENT_API_KEY = "hydraswap";
 
 // TODO: Replace with your fee component address (contact Astrolescent on Telegram to set up)
@@ -12,14 +11,26 @@ const HYDRA_SWAP_FEE = 0.005;
 
 export const ASTROLESCENT_BASE_URL = `https://api.astrolescent.com/partner/${ASTROLESCENT_API_KEY}`;
 
-// Known token resource addresses on Radix mainnet
-export const TOKEN_ADDRESSES: Record<string, string> = {
-  XRD: "resource_rdx1tknxxxxxxxxxradaboraboraborxxxxxxxxx009923554798",
-  HYDRA: "resource_rdx1thrvr3xfs2tarm2dl9emvs26vjqxu6mqvfgvqjne940jv0lnrrg7p",
-  OCI: "resource_rdx1t4upr78guuapv5ept7d7ptee0k0fep0xmahi6dh5lnuf6p26p5cans",
-  ASTRL: "resource_rdx1t5ga7j04ek4laprf7xryxlu4hl04373sskdaaptfnjhnsns98vma8m",
-  HUG: "resource_rdx1t5kmyj54jt85malva7fxdrnpvgfgs623yt7ywdaval25vrdlmnwe97",
-};
+// Preferred tokens to show in the swap UI (by symbol)
+export const PREFERRED_SYMBOLS = ["XRD", "HYDRA", "OCI", "ASTRL", "HUG"];
+
+export interface AstrolescentToken {
+  address: string;
+  symbol: string;
+  name: string;
+  iconUrl: string;
+  icon_url: string;
+  tokenPriceXRD: number;
+  tokenPriceUSD: number;
+}
+
+export async function getTokenList(): Promise<AstrolescentToken[]> {
+  const response = await fetch(`${ASTROLESCENT_BASE_URL}/tokens`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch tokens: ${response.status}`);
+  }
+  return response.json();
+}
 
 export interface SwapQuoteRequest {
   inputToken: string;
@@ -72,7 +83,8 @@ export async function getSwapQuote(
   });
 
   if (!response.ok) {
-    throw new Error(`Astrolescent API error: ${response.status}`);
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Astrolescent API error: ${response.status}`);
   }
 
   return response.json();
