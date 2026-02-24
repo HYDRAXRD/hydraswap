@@ -17,22 +17,6 @@ const Header = () => {
           </span>
         </div>
 
-        {/* Nav */}
-        <nav className="hidden md:flex items-center gap-1">
-          {["Swap", "Pool", "Stake", "Bridge"].map((item) => (
-            <button
-              key={item}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                item === "Swap"
-                  ? "bg-secondary text-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </nav>
-
         {/* Radix Connect Button */}
         <RadixConnectButton />
       </div>
