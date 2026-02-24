@@ -309,21 +309,15 @@ const SwapCard = () => {
             <p className="text-xs text-destructive mt-3 text-center">{error}</p>
           )}
 
-          {connected ? (
-            <motion.button
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleSwap}
-              disabled={!quote || loading}
-              className="w-full mt-4 hydra-gradient-cyan text-accent-foreground py-4 rounded-xl font-display font-bold text-base transition-all duration-200 hover:opacity-95 hydra-btn-glow disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? "Fetching Quote..." : !quote ? "Enter an amount" : "Swap"}
-            </motion.button>
-          ) : (
-            <div className="w-full mt-4 flex justify-center">
-              <RadixConnectButton />
-            </div>
-          )}
+          <motion.button
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleSwap}
+            disabled={!connected || !quote || loading}
+            className="w-full mt-4 hydra-gradient-cyan text-accent-foreground py-4 rounded-xl font-display font-bold text-base transition-all duration-200 hover:opacity-95 hydra-btn-glow disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {!connected ? "Connect Wallet to Swap" : loading ? "Fetching Quote..." : !quote ? "Enter an amount" : "Swap"}
+          </motion.button>
         </div>
       </div>
 
