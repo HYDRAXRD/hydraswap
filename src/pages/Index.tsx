@@ -28,32 +28,31 @@ const Index = () => {
             backgroundSize: "40px 40px",
           }}
         />
-        {/* Rising Bubbles */}
-        {Array.from({ length: 20 }).map((_, i) => (
+        {/* Rising Hydras */}
+        {Array.from({ length: 15 }).map((_, i) => (
           <motion.div
-            key={`bubble-${i}`}
-            className="absolute rounded-full"
+            key={`hydra-${i}`}
+            className="absolute select-none pointer-events-none"
             style={{
               left: `${5 + Math.random() * 90}%`,
-              bottom: `-${20 + Math.random() * 40}px`,
-              width: `${6 + Math.random() * 18}px`,
-              height: `${6 + Math.random() * 18}px`,
-              background: `radial-gradient(circle at 30% 30%, hsl(195 100% 70% / ${0.08 + Math.random() * 0.12}), hsl(180 80% 50% / ${0.03 + Math.random() * 0.06}))`,
-              border: `1px solid hsl(195 100% 60% / ${0.05 + Math.random() * 0.1})`,
+              bottom: `-${30 + Math.random() * 40}px`,
+              fontSize: `${16 + Math.random() * 24}px`,
             }}
             animate={{
               y: [0, -(window.innerHeight + 100)],
-              x: [0, (Math.random() - 0.5) * 80],
-              opacity: [0, 0.8, 0.6, 0],
-              scale: [0.5, 1, 1.1, 0.8],
+              x: [0, (Math.random() - 0.5) * 60],
+              opacity: [0, 0.1, 0.07, 0],
+              rotate: [0, (Math.random() - 0.5) * 30],
             }}
             transition={{
-              duration: 8 + Math.random() * 12,
+              duration: 10 + Math.random() * 15,
               repeat: Infinity,
               ease: "easeOut",
-              delay: Math.random() * 10,
+              delay: Math.random() * 12,
             }}
-          />
+          >
+            🐉
+          </motion.div>
         ))}
         {/* Floating particles */}
         {Array.from({ length: 6 }).map((_, i) => (
