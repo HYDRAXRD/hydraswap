@@ -3,8 +3,7 @@
 
 const ASTROLESCENT_API_KEY = "hydraswap";
 
-// TODO: Replace with your fee component address (contact Astrolescent on Telegram to set up)
-const FEE_COMPONENT = "";
+const FEE_COMPONENT = "component_rdx1czrf5g2h0lhjaftqdg3w0jfr57jzursse9m5depefm3reecg7payrf";
 
 // Hydra Swap fee: 0.5% => 0.005
 const HYDRA_SWAP_FEE = 0.005;
