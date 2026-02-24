@@ -39,6 +39,8 @@ export interface SwapQuoteRequest {
 }
 
 export interface SwapRoute {
+  tokensIn?: number;
+  tokensOut?: number;
   pools: {
     type: string;
     dex?: string;
