@@ -3,10 +3,10 @@ import SwapCard from "@/components/SwapCard";
 import { motion } from "framer-motion";
 
 const SOCIAL_LINKS = [
-  { label: "X", href: "https://x.com/HydraSwap", icon: (
+  { label: "X", href: "https://x.com/HYDRAXRD", icon: (
     <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
   )},
-  { label: "Telegram", href: "https://t.me/HydraSwap", icon: (
+  { label: "Telegram", href: "https://t.me/hydraxrd", icon: (
     <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
   )},
   { label: "Website", href: "https://hydraxrd.com", icon: (
@@ -28,9 +28,37 @@ const Index = () => {
             backgroundSize: "40px 40px",
           }}
         />
+        {/* Rising Bubbles */}
+        {Array.from({ length: 20 }).map((_, i) => (
+          <motion.div
+            key={`bubble-${i}`}
+            className="absolute rounded-full"
+            style={{
+              left: `${5 + Math.random() * 90}%`,
+              bottom: `-${20 + Math.random() * 40}px`,
+              width: `${6 + Math.random() * 18}px`,
+              height: `${6 + Math.random() * 18}px`,
+              background: `radial-gradient(circle at 30% 30%, hsl(195 100% 70% / ${0.08 + Math.random() * 0.12}), hsl(180 80% 50% / ${0.03 + Math.random() * 0.06}))`,
+              border: `1px solid hsl(195 100% 60% / ${0.05 + Math.random() * 0.1})`,
+            }}
+            animate={{
+              y: [0, -(window.innerHeight + 100)],
+              x: [0, (Math.random() - 0.5) * 80],
+              opacity: [0, 0.8, 0.6, 0],
+              scale: [0.5, 1, 1.1, 0.8],
+            }}
+            transition={{
+              duration: 8 + Math.random() * 12,
+              repeat: Infinity,
+              ease: "easeOut",
+              delay: Math.random() * 10,
+            }}
+          />
+        ))}
+        {/* Floating particles */}
         {Array.from({ length: 6 }).map((_, i) => (
           <motion.div
-            key={i}
+            key={`particle-${i}`}
             className="absolute w-1 h-1 rounded-full bg-primary/30"
             style={{
               left: `${15 + i * 15}%`,
@@ -61,7 +89,27 @@ const Index = () => {
           className="text-center mb-8"
         >
           <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">
-            <span className="hydra-gradient-text">Hydra</span> Swap
+            <motion.span
+              className="inline-block"
+              style={{
+                background: "linear-gradient(90deg, hsl(195 100% 60%), hsl(175 85% 45%), hsl(160 90% 50%), hsl(195 100% 60%))",
+                backgroundSize: "300% 100%",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              Hydra
+            </motion.span>{" "}
+            <span>Swap</span>
           </h1>
           <p className="text-sm text-muted-foreground">
             Trade tokens instantly on the Radix network
