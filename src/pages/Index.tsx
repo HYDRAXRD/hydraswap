@@ -140,7 +140,7 @@ const Index = () => {
             ))}
           </div>
           <p className="text-xs text-muted-foreground/60 text-center">
-            Powered by Astrolescent • Built by the Hydra Community
+            Powered by Astrolescent
           </p>
         </motion.div>
       </main>

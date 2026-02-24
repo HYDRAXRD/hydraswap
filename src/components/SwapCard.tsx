@@ -122,10 +122,11 @@ const SwapCard = () => {
         }));
 
         setTokens(allTokens);
-        if (allTokens.length >= 2) {
-          setFromToken(allTokens[0]);
-          setToToken(allTokens[1]);
-        }
+        // Default pair: XRD -> HYDRA
+        const xrd = allTokens.find((t) => t.symbol.toUpperCase() === "XRD");
+        const hydra = allTokens.find((t) => t.symbol.toUpperCase() === "HYDRA");
+        setFromToken(xrd || allTokens[0]);
+        setToToken(hydra || allTokens[1] || allTokens[0]);
       } catch (err) {
         console.error("Failed to load tokens:", err);
         setError("Failed to load tokens");
