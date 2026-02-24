@@ -2,7 +2,7 @@
 // Docs: https://docs.astrolescent.com/astrolescent-docs/infrastructure/api
 
 // TODO: Replace with your actual Astrolescent partner API key
-const ASTROLESCENT_API_KEY = "YOUR_PARTNER_API_KEY";
+const ASTROLESCENT_API_KEY = "hydraswap";
 
 // TODO: Replace with your fee component address (contact Astrolescent on Telegram to set up)
 const FEE_COMPONENT = "";
