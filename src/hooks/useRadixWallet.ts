@@ -6,21 +6,21 @@ export const useRadixWallet = () => {
   const [accounts, setAccounts] = useState<WalletDataState["accounts"]>([]);
 
   useEffect(() => {
-    // The RDT is initialized in main.tsx. The connect button handles wallet interaction.
-    // We listen for wallet data changes via custom events dispatched by RDT.
-    const checkConnection = () => {
-      const rdt = (globalThis as any).__rdt;
-      if (rdt) {
-        rdt.walletApi.walletData$.subscribe((data: WalletDataState) => {
-          setAccounts(data?.accounts ?? []);
-          setConnected((data?.accounts?.length ?? 0) > 0);
-        });
+    const rdt = (globalThis as any).__rdt;
+    if (!rdt) return;
+
+    // Subscribe to wallet data changes
+    const subscription = rdt.walletApi.walletData$.subscribe((data: WalletDataState) => {
+      const accs = data?.accounts ?? [];
+      setAccounts(accs);
+      setConnected(accs.length > 0);
+    });
+
+    return () => {
+      if (subscription && typeof subscription.unsubscribe === "function") {
+        subscription.unsubscribe();
       }
     };
-    
-    // Small delay to let RDT initialize
-    const timer = setTimeout(checkConnection, 500);
-    return () => clearTimeout(timer);
   }, []);
 
   const shortenAddress = (address: string) => {
