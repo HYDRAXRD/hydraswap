@@ -11,6 +11,7 @@ interface Token {
   name: string;
   icon: string;
   address: string;
+  priceXRD: number;
 }
 
 const TokenSelector = ({
@@ -119,6 +120,7 @@ const SwapCard = () => {
           name: t.name,
           icon: t.iconUrl || t.icon_url,
           address: t.address,
+          priceXRD: t.tokenPriceXRD || 0,
         }));
 
         setTokens(allTokens);
@@ -207,7 +209,18 @@ const SwapCard = () => {
   }
 
   const outputAmount = quote ? quote.outputTokens.toLocaleString(undefined, { maximumFractionDigits: 6 }) : "";
-  const priceImpact = quote ? `${quote.priceImpact}%` : "—";
+
+  // Calculate real price impact from market prices
+  const computedPriceImpact = (() => {
+    if (!quote || !fromToken || !toToken || toToken.priceXRD <= 0) return null;
+    const expectedOutput = (parseFloat(fromAmount.replace(/,/g, "")) * fromToken.priceXRD) / toToken.priceXRD;
+    if (expectedOutput <= 0) return null;
+    const totalReceived = quote.outputTokens + parseFloat(quote.swapFee || "0");
+    const impact = ((expectedOutput - totalReceived) / expectedOutput) * 100;
+    return Math.max(0, impact);
+  })();
+
+  const priceImpact = computedPriceImpact !== null ? `${computedPriceImpact.toFixed(2)}%` : `${quote?.priceImpact ?? 0}%`;
   const rate = quote
     ? `1 ${fromToken.symbol} = ${(quote.outputTokens / quote.inputTokens).toFixed(4)} ${toToken.symbol}`
     : "—";
