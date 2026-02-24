@@ -11,7 +11,7 @@ const HYDRA_SWAP_FEE = 0.005;
 export const ASTROLESCENT_BASE_URL = `https://api.astrolescent.com/partner/${ASTROLESCENT_API_KEY}`;
 
 // Preferred tokens to show in the swap UI (by symbol)
-export const PREFERRED_SYMBOLS = ["XRD", "HYDRA", "OCI", "ASTRL", "HUG"];
+export const PREFERRED_SYMBOLS = ["XRD", "HYDR", "HYDRA", "OCI", "ASTRL", "HUG"];
 
 export interface AstrolescentToken {
   address: string;
