@@ -3,8 +3,8 @@ import { RadixDappToolkit, RadixNetwork } from "@radixdlt/radix-dapp-toolkit";
 import App from "./App.tsx";
 import "./index.css";
 
-// Initialize Radix DApp Toolkit globally
-RadixDappToolkit({
+// Initialize Radix DApp Toolkit globally and save instance
+(globalThis as any).__rdt = RadixDappToolkit({
   dAppDefinitionAddress:
     "account_rdx12y7md4spfq5qy7e3mfjpa52937uvkxf0nmydsu5wydkkxw3qx6nghn",
   networkId: RadixNetwork.Mainnet,
