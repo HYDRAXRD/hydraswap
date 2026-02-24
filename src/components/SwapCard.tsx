@@ -330,20 +330,29 @@ const SwapCard = () => {
         >
           <p className="text-xs font-medium text-muted-foreground mb-2">Route</p>
           <div className="space-y-1.5">
-            {quote.routes.map((route, idx) => (
-              <div key={idx} className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  {route.pools.map((pool, pidx) => (
-                    <span key={pidx} className="text-foreground/80">
-                      {pool.name || pool.type || pool.dex || `Pool ${pidx + 1}`}
-                    </span>
-                  ))}
+            {quote.routes.map((route, idx) => {
+              const pool = route.pools[0];
+              const pct = quote.inputTokens > 0
+                ? ((route.tokensIn ?? 0) / quote.inputTokens * 100).toFixed(0)
+                : null;
+              return (
+                <div key={idx} className="flex items-center justify-between text-xs">
+                  <span className="text-foreground/80">
+                    {pool?.type || pool?.dex || `Pool ${idx + 1}`}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    {route.tokensIn != null && route.tokensOut != null && (
+                      <span className="text-muted-foreground">
+                        {route.tokensIn.toLocaleString(undefined, { maximumFractionDigits: 2 })} → {route.tokensOut.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                      </span>
+                    )}
+                    {pct && (
+                      <span className="text-primary font-semibold">{pct}%</span>
+                    )}
+                  </div>
                 </div>
-                {route.pools[0]?.percentage && (
-                  <span className="text-primary font-semibold">{route.pools[0].percentage}%</span>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
       )}
