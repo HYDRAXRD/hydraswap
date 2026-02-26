@@ -6,7 +6,7 @@ import "./index.css";
 // Initialize Radix DApp Toolkit globally and save instance
 const rdt = RadixDappToolkit({
   dAppDefinitionAddress:
-    "account_rdx12y7md4spfq5qy7e3mfjpa52937uvkxf0nmydsu5wydkkxw3qx6nghn",
+    "account_rdx128g6ct5u6h30ltyyklq8mk4g3jur3lqk2hmn8rtx9y6sctrmcf76r4",
   networkId: RadixNetwork.Mainnet,
   applicationName: "Hydra Swap",
   applicationVersion: "1.0.0",
