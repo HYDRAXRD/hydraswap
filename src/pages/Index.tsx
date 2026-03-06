@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import SwapCard from "@/components/SwapCard";
+import PriceTicker from "@/components/PriceTicker";
 import { motion } from "framer-motion";
 
 const SOCIAL_LINKS = [
@@ -79,8 +80,13 @@ const Index = () => {
 
       <Header />
 
+      {/* Price Ticker Bar */}
+      <div className="relative z-40 pt-[64px]">
+        <PriceTicker />
+      </div>
+
       {/* Main Content */}
-      <main className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-20 pb-10 px-4">
+      <main className="relative z-10 flex flex-col items-center justify-center min-h-screen pb-10 px-4" style={{ marginTop: "-64px" }}>
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
