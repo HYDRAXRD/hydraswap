@@ -1,4 +1,5 @@
 import hydraLogo from "@/assets/hydra-logo.png";
+import TokenTicker from "./TokenTicker";
 
 const RadixConnectButton = "radix-connect-button" as any;
 
@@ -20,6 +21,9 @@ const Header = () => {
         {/* Radix Connect Button */}
         <RadixConnectButton />
       </div>
+
+      {/* Token Price Ticker */}
+      <TokenTicker />
     </header>
   );
 };
