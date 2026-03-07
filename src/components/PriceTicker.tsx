@@ -8,6 +8,7 @@ interface TokenPrice {
   iconUrl: string;
 }
 
+// Tokens permitidos - apenas esses serão exibidos na faixa
 const TRACKED_SYMBOLS = ["XRD", "HYDR", "ASTRL", "xwBTC", "xETH", "xSOL", "DFP2", "ILIS", "EARLY", "hSOL", "WOWO"];
 
 const DISPLAY_NAMES: Record<string, string> = {
@@ -25,9 +26,10 @@ const PriceTicker = () => {
         const res = await fetch(`${ASTROLESCENT_BASE_URL}/tokens`);
         if (!res.ok) return;
         const data = await res.json();
-        const filtered = TRACKED_SYMBOLS.map((sym) =>
-          data.find((t: any) => t.symbol === sym)
-        ).filter(Boolean) as TokenPrice[];
+        // Filtra estritamente: apenas tokens cujo symbol está na lista
+        const filtered = TRACKED_SYMBOLS
+          .map((sym) => data.find((t: any) => t.symbol === sym && TRACKED_SYMBOLS.includes(t.symbol)))
+          .filter((t): t is TokenPrice => !!t && typeof t.tokenPriceUSD === "number");
         setPrices(filtered);
       } catch {}
     };
