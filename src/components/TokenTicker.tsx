@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 const TICKER_ADDRESSES = [
   "resource_rdx1t4dy69k6s0gv040xa64cyadyefczgq9r57jlxhfxcmqnlhpqdc6wx", // HYDRA
   "resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd",   // XRD
-  "resource_rdx1th2zd7pjp8xjmjm9ne3g2l3mjscyltkg97k02g8tzxvamqxrg00k8", // MRD
   "resource_rdx1t5h5prjm4gv08htpz5c0hg5rw48rszevq2h8yw2ldgvqy0s2c8vvn", // DOUBT
   "resource_rdx1t5ywq4c6nd2lxkemkv4uzt8v7x7smjcguzq5sgafwtasa6luq7fclq", // DFP2
 ];
@@ -35,7 +34,7 @@ const fetchTokenPrices = async (): Promise<TokenData[]> => {
     if (!entry) {
       return {
         address,
-        symbol: isHydra ? "HYDRA" : address.slice(-6).toUpperCase(),
+        symbol: isHydra ? "HYDR" : address.slice(-6).toUpperCase(),
         iconUrl: isHydra ? HYDRA_LOGO : "",
         price: null,
         change24h: null,
