@@ -13,11 +13,6 @@ const TICKER_ADDRESSES = [
   "resource_rdx1t5xv44c0u99z096q00mv74emwmxwjw26m98lwlzq6ddlpe9f5cuc7s", // EARLY
   "resource_rdx1t4kc5ljyrwlxvg54s6gnctt7nwwgx89h9r2gvrpm369s23yhzyyzlx", // WOWO
   "resource_rdx1t42hpqvsk4t42l6aw09hwphd2axvetp6gvas9ztue0p30f4hzdwxrp", // DCKS
-
-  const DISPLAY_NAMES: Record<string, string> = {
-  xwBTC: "BTC",
-  xETH: "ETH",
-  hSOL: "SOL",
 };
 
 
