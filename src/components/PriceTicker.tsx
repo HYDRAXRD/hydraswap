@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { ASTROLESCENT_BASE_URL } from "@/lib/astrolescent";
 
 interface TokenPrice {
@@ -18,7 +18,6 @@ const DISPLAY_NAMES: Record<string, string> = {
 
 const PriceTicker = () => {
   const [prices, setPrices] = useState<TokenPrice[]>([]);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchPrices = async () => {
@@ -49,7 +48,6 @@ const PriceTicker = () => {
     const pctChange = token.diff24HUSD * 100;
     const isPositive = pctChange >= 0;
     const displaySymbol = DISPLAY_NAMES[token.symbol] || token.symbol;
-
     return (
       <div key={`${token.symbol}-${i}`} className="flex items-center gap-2 shrink-0 px-4">
         <img src={token.iconUrl} alt={displaySymbol} className="w-4 h-4 rounded-full" />
@@ -62,15 +60,27 @@ const PriceTicker = () => {
     );
   };
 
+  const tickerStyle: React.CSSProperties = {
+    display: "flex",
+    width: "max-content",
+    animation: "ticker-scroll 40s linear infinite",
+  };
+
   return (
-    <div className="w-full bg-secondary/40 border-b border-border/30 backdrop-blur-sm mb-0">
-      <div className="ticker-wrapper">
-        <div className="ticker-track py-2.5">
+    <>
+      <style>{`
+        @keyframes ticker-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+      <div className="w-full bg-secondary/40 border-b border-border/30 backdrop-blur-sm overflow-hidden">
+        <div style={tickerStyle}>
           {prices.map((t, i) => renderItem(t, i))}
           {prices.map((t, i) => renderItem(t, i + prices.length))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
