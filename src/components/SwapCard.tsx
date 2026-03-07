@@ -126,7 +126,7 @@ const SwapCard = () => {
         setTokens(allTokens);
         // Default pair: XRD -> HYDRA
         const xrd = allTokens.find((t) => t.symbol.toUpperCase() === "XRD");
-        const hydra = allTokens.find((t) => ["HYDR", "HYDRA"].includes(t.symbol.toUpperCase()));
+        const hydra = allTokens.find((t) => ["HYDR", "HYDR"].includes(t.symbol.toUpperCase()));
         setFromToken(xrd || allTokens[0]);
         setToToken(hydra || allTokens[1] || allTokens[0]);
       } catch (err) {
