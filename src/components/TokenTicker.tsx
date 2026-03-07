@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 // Endereços dos tokens exibidos na faixa
 const TICKER_ADDRESSES = [
-  "resource_rdx1t4dy69k6s0gv040xa64cyadyefczgq9r57jlxhfxcmqnlhpqdc6wx", // HYDRA
+  "resource_rdx1t4dy69k6s0gv040xa64cyadyefczgq9r57jlxhfxcmqnlhpqdc6wx", // HYDR
   "resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd",   // XRD
   "resource_rdx1t580qxc7upat7lww4l2c4jckacafjeudxj5wpjrrct0p3e82sq4y75", // xwBTC
   "resource_rdx1t5h5prjm4gv08htpz5c0hg5rw48rszevq2h8yw2ldgvqy0s2c8vvn", // DOUBT
