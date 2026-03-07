@@ -8,7 +8,7 @@ interface TokenPrice {
   iconUrl: string;
 }
 
-const TRACKED_SYMBOLS = ["xwBTC", "xETH", "hSOL", "XRD", "HYDR", "ASTRL", "DFP2", "ILIS", "EARLY", "WOWO", "DCKS"];
+const TRACKED_SYMBOLS = ["BTC", "xETH", "hSOL", "XRD", "HYDR", "ASTRL", "DFP2", "ILIS", "EARLY", "WOWO", "DCKS"];
 
 const DISPLAY_NAMES: Record<string, string> = {
   xwBTC: "BTC",
