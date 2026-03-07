@@ -78,22 +78,21 @@ const Index = () => {
         ))}
       </div>
 
-      <Header />
-
-      {/* Price Ticker Bar */}
-      <div className="relative z-40 pt-[64px]">
+      {/* Fixed top: Header + PriceTicker */}
+      <div className="fixed top-0 left-0 right-0 z-50">
+        <Header />
         <PriceTicker />
       </div>
 
-      {/* Main Content */}
-      <main className="relative z-10 flex flex-col items-center justify-center min-h-screen pb-10 px-4" style={{ marginTop: "-64px" }}>
+      {/* Fixed title below header + ticker (header=64px, ticker~34px) */}
+      <div className="fixed left-0 right-0 z-40 flex flex-col items-center pt-[108px] pb-3 bg-background/80 backdrop-blur-sm border-b border-border/20">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-center mb-8"
+          className="text-center"
         >
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-1">
             <motion.span
               className="inline-block"
               style={{
@@ -120,9 +119,11 @@ const Index = () => {
             Trade tokens instantly on the Radix network
           </p>
         </motion.div>
+      </div>
 
+      {/* Main Content - padded to clear fixed header + ticker + title (~64+34+90=188px) */}
+      <main className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-[200px] pb-10 px-4">
         <SwapCard />
-
         {/* Footer with social links */}
         <motion.div
           initial={{ opacity: 0 }}
