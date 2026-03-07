@@ -8,7 +8,6 @@ interface TokenPrice {
   iconUrl: string;
 }
 
-// Tokens permitidos - apenas esses serão exibidos na faixa
 const TRACKED_SYMBOLS = ["XRD", "HYDR", "ASTRL", "xwBTC", "xETH", "xSOL", "DFP2", "ILIS", "EARLY", "hSOL", "WOWO"];
 
 const DISPLAY_NAMES: Record<string, string> = {
@@ -26,9 +25,8 @@ const PriceTicker = () => {
         const res = await fetch(`${ASTROLESCENT_BASE_URL}/tokens`);
         if (!res.ok) return;
         const data = await res.json();
-        // Filtra estritamente: apenas tokens cujo symbol está na lista
         const filtered = TRACKED_SYMBOLS
-          .map((sym) => data.find((t: any) => t.symbol === sym && TRACKED_SYMBOLS.includes(t.symbol)))
+          .map((sym) => data.find((t: any) => t.symbol === sym))
           .filter((t): t is TokenPrice => !!t && typeof t.tokenPriceUSD === "number");
         setPrices(filtered);
       } catch {}
@@ -51,38 +49,25 @@ const PriceTicker = () => {
     const isPositive = pctChange >= 0;
     const displaySymbol = DISPLAY_NAMES[token.symbol] || token.symbol;
     return (
-      <div key={`${token.symbol}-${i}`} className="flex items-center gap-2 shrink-0 px-4">
-        <img src={token.iconUrl} alt={displaySymbol} className="w-4 h-4 rounded-full" />
-        <span className="text-xs font-semibold text-foreground">${displaySymbol}</span>
-        <span className="text-xs text-muted-foreground">${formatPrice(token.tokenPriceUSD)}</span>
-        <span className={`text-xs font-medium ${isPositive ? "text-green-400" : "text-red-400"}`}>
+      <div key={`${token.symbol}-${i}`} className="flex items-center gap-2 shrink-0 px-4 py-2">
+        <img src={token.iconUrl} alt={displaySymbol} className="w-4 h-4 rounded-full flex-shrink-0" />
+        <span className="text-xs font-semibold text-foreground min-w-[20px]">{displaySymbol}</span>
+        <span className="text-xs text-muted-foreground min-w-[60px]">${formatPrice(token.tokenPriceUSD)}</span>
+        <span className={`text-xs font-medium ${isPositive ? "text-green-400" : "text-red-400"} min-w-[45px]`}>
           {isPositive ? "+" : ""}{pctChange.toFixed(2)}%
         </span>
       </div>
     );
   };
 
-  const tickerStyle: React.CSSProperties = {
-    display: "flex",
-    width: "max-content",
-    animation: "ticker-scroll 40s linear infinite",
-  };
-
   return (
-    <>
-      <style>{`
-        @keyframes ticker-scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
-      <div className="w-full bg-secondary/40 border-b border-border/30 backdrop-blur-sm overflow-hidden">
-        <div style={tickerStyle}>
-          {prices.map((t, i) => renderItem(t, i))}
-          {prices.map((t, i) => renderItem(t, i + prices.length))}
-        </div>
+    <div className="w-full bg-secondary/40 border-b border-border/30 backdrop-blur-sm overflow-hidden">
+      {/* Container com gap para separação suave entre loops */}
+      <div className="flex animate-ticker-scroll gap-8">
+        {prices.map((t, i) => renderItem(t, i))}
+        {prices.map((t, i) => renderItem(t, i + prices.length))}
       </div>
-    </>
+    </div>
   );
 };
 
