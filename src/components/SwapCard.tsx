@@ -94,7 +94,7 @@ const SwapCard = () => {
   const [tokens, setTokens] = useState<Token[]>([]);
   const [fromToken, setFromToken] = useState<Token | null>(null);
   const [toToken, setToToken] = useState<Token | null>(null);
-  const [fromAmount, setFromAmount] = useState("");
+  const [fromAmount, setFromAmount] = useState("1000");
   const [openSelector, setOpenSelector] = useState<"from" | "to" | null>(null);
   const [quote, setQuote] = useState<SwapQuoteResponse | null>(null);
   const [loading, setLoading] = useState(false);
