@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 // Endereços dos tokens exibidos na faixa
 const TICKER_ADDRESSES = [
-  "resource_rdx1t4dy69k6s0gv040xa64cyadyefczgq9r57jlxhfxcmqnlhpqdc6wx", // HYDR
+  "resource_rdx1t4kc2yjdcqprwu70tahua3p8uwvjej9q3rktpxdr8p5pmcp4almd6r", // HYDR
   "resource_rdx1tknxxxxxxxxxradxrdxxxxxxxxx009923554798xxxxxxxxxradxrd",   // XRD
   "resource_rdx1t580qxc7upat7lww4l2c4jckacafjeudxj5wpjrrct0p3e82sq4y75", // xwBTC
   "resource_rdx1th88qcj5syl9ghka2g9l7tw497vy5x6zaatyvgfkwcfe8n9jt2npww", // xETH
@@ -11,7 +11,7 @@ const TICKER_ADDRESSES = [
 
 // Logo manual para HYDRA (não está na API Astrolescent)
 const HYDRA_LOGO = "https://www.hydraxrd.com/hydra-logo.png";
-const HYDRA_ADDRESS = "resource_rdx1t4dy69k6s0gv040xa64cyadyefczgq9r57jlxhfxcmqnlhpqdc6wx";
+const HYDRA_ADDRESS = "resource_rdx1t4kc2yjdcqprwu70tahua3p8uwvjej9q3rktpxdr8p5pmcp4almd6r";
 
 interface TokenData {
   address: string;
