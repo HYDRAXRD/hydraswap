@@ -16,7 +16,7 @@ const TICKER_ADDRESSES = [
 ];
 
 // Logo manual para HYDRA (não está na API Astrolescent)
-const HYDRA_LOGO = "https://www.hydraxrd.com/hydra-logo.png";
+const HYDRA_LOGO = "https://arweave.net/dYJSMjZlaoVSttypbD46PJumutb0Nb-x1Zz8e7PdqA0";
 const HYDRA_ADDRESS = "resource_rdx1t4kc2yjdcqprwu70tahua3p8uwvjej9q3rktpxdr8p5pmcp4almd6r";
 
 interface TokenData {
