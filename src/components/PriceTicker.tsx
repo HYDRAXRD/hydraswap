@@ -11,6 +11,9 @@ interface TokenPrice {
 const TRACKED_SYMBOLS = ["xwBTC", "xETH", "hSOL", "XRD", "HYDR", "ASTRL", "DFP2", "ILIS", "EARLY", "WOWO", "DCKS"];
 
 const DISPLAY_NAMES: Record<string, string> = {
+  xwBTC: "BTC",
+  xETH: "ETH",
+  hSOL: "SOL",
 };
 
 const PriceTicker = () => {
