@@ -69,5 +69,3 @@ const renderItem = (token: TokenPrice, i: number) => {
     </div>
   );
 };
-
-export default PriceTicker;
