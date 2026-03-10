@@ -69,7 +69,7 @@ const formatPrice = (price: number | null) => {
   if (price >= 1) return `$${price.toFixed(2)}`;
   if (price >= 0.01) return `$${price.toFixed(3)}`;
   if (price >= 0.0001) return `$${price.toFixed(4)}`;
-  return `$${price.toExponential(2)}`;
+  return `$${price.toFixed(6)}`;
 };
 
 const formatChange = (change: number | null) => {
