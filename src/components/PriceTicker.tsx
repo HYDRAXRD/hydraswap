@@ -74,7 +74,7 @@ const PriceTicker = () => {
     // Case-insensitive mapping simples
     let displaySymbol = token.symbol;
     const upperSymbol = token.symbol.toUpperCase();
-    if (upperSymbol.includes('BTC')) displaySymbol = 'BTC';
+    if (upperSymbol.includes('xwBTC')) displaySymbol = 'BTC';
     else if (upperSymbol.includes('ETH')) displaySymbol = 'ETH';
     else if (upperSymbol.includes('SOL')) displaySymbol = 'SOL';
     
