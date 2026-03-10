@@ -12,8 +12,11 @@ const TRACKED_SYMBOLS = ["xwBTC", "xETH", "hSOL", "XRD", "HYDR", "ASTRL", "DFP2"
 
 const DISPLAY_NAMES: Record<string, string> = {
   xwBTC: "BTC",
+  xwbtc: "BTC",
   xETH: "ETH",
+  xeth: "ETH",
   hSOL: "SOL",
+  hsol: "SOL",
 };
 
 const PriceTicker = () => {
