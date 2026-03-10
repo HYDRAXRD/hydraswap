@@ -41,27 +41,30 @@ const PriceTicker = () => {
   };
 
 const renderItem = (token: TokenPrice, i: number) => {
-  const pctChange = token.diff24HUSD * 100;
-  const isPositive = pctChange >= 0;
-  
-  // Mapeamento simples com if/else (sem Record lookup dinâmico)
-  let displaySymbol = token.symbol;
-  const upperSymbol = token.symbol.toUpperCase();
-  
-  if (upperSymbol === 'XWBTC' || upperSymbol === 'xwbtc') displaySymbol = 'BTC';
-  else if (upperSymbol === 'XETH' || upperSymbol === 'xeth') displaySymbol = 'ETH';
-  else if (upperSymbol === 'HSOL' || upperSymbol === 'hsol') displaySymbol = 'SOL';
-  
-  console.log(`"${token.symbol}" → "${displaySymbol}"`); // Remova depois
-  
+    const pctChange = token.diff24HUSD * 100;
+    const isPositive = pctChange >= 0;
+    const displaySymbol = DISPLAY_NAMES[token.symbol] || token.symbol;
+    return (
+      <div key={`${token.symbol}-${i}`} className="flex items-center gap-2 shrink-0 px-4 py-2">
+        <img src={token.iconUrl} alt={displaySymbol} className="w-4 h-4 rounded-full flex-shrink-0" />
+        <span className="text-xs font-semibold text-foreground min-w-[20px]">{displaySymbol}</span>
+        <span className="text-xs text-muted-foreground min-w-[60px]">${formatPrice(token.tokenPriceUSD)}</span>
+        <span className={`text-xs font-medium ${isPositive ? "text-green-400" : "text-red-400"} min-w-[45px]`}>
+          {isPositive ? "+" : ""}{pctChange.toFixed(2)}%
+        </span>
+      </div>
+    );
+  };
+console.log(`Token symbol: "${token.symbol}" → Display: "${displaySymbol}"`);
   return (
-    <div key={`${token.symbol}-${i}`} className="flex items-center gap-2 shrink-0 px-4 py-2">
-      <img src={token.iconUrl} alt={displaySymbol} className="w-4 h-4 rounded-full flex-shrink-0" />
-      <span className="text-xs font-semibold text-foreground min-w-[20px]">{displaySymbol}</span>
-      <span className="text-xs text-muted-foreground min-w-[60px]">${formatPrice(token.tokenPriceUSD)}</span>
-      <span className={`text-xs font-medium ${isPositive ? "text-green-400" : "text-red-400"} min-w-[45px]`}>
-        {isPositive ? "+" : ""}{pctChange.toFixed(2)}%
-      </span>
+    <div className="w-full bg-secondary/40 border-b border-border/30 backdrop-blur-sm overflow-hidden">
+      {/* Container com gap para separação suave entre loops */}
+      <div className="flex animate-ticker-scroll gap-8">
+        {prices.map((t, i) => renderItem(t, i))}
+        {prices.map((t, i) => renderItem(t, i + prices.length))}
+      </div>
     </div>
   );
 };
+
+export default PriceTicker;
