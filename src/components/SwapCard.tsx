@@ -196,6 +196,7 @@ const SwapCard = () => {
     if (rdt) {
       rdt.walletApi.sendTransaction({
         transactionManifest: quote.manifest,
+        message: "Swap using Hydraswap",
       });
     }
   };
