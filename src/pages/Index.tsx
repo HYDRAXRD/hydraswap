@@ -12,8 +12,8 @@ const SOCIAL_LINKS = [
   )},
   { href: "https://youtube.com/@hydraxrd", icon: (
   <svg viewBox="0 0 24 24" className="w-4 h-4 text-gray-400 fill-current">
-    <rect x="5" y="5" width="14" height="14" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-    <polygon points="10,7 10,12 16,10" fill="currentColor"/>
+    <rect x="5" y="5" width="14" height="14" rx="3" fill="#FF0000" opacity="0.2"/>
+    <path d="M10.5 7v10l7-5z" fill="currentColor"/>
   </svg>
 )},
 { href: "https://instagram.com/hydraxrd", icon: (
