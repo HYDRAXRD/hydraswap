@@ -17,8 +17,20 @@ const SOCIAL_LINKS = [
   </svg>
 )},
 { href: "https://instagram.com/hydraxrd", icon: (
-  <svg viewBox="0 0 16 16" className="w-4 h-4 text-gray-400 fill-current" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8 0C5.829 0 5.01.01 4.01.04 2.95.056 1.95.19 1.01.43  .2 .56 0 1.02 0 1.91v10.18C0 13.98.2 14.44.01 15.01c.25.42.61.78 1.02 1.01.95.25 1.95.39 2.99.4 1 .01 1.82 0 2.99-.04 1.05-.03 2.04-.22 2.99-.43  .41-.23.77-.59 1.02-1.01.2-.57.2-1.19.01-1.91V1.91C16 1.02 15.8.56 15  .43c-.95-.25-1.95-.39-2.99-.4C10.18 0 9.99.01 8 0ZM7.99 16A1 1 0 0 1 8 15c0-.28-.01-.56-.04-.84-.3-.84-1.65-1.51-3.36-1.51s-3.06.67-3.36 1.51C4.01 15.44 4 15.72 4 16a1 1 0 0 1-1 1C2.28 17 1.67 16.3 1.48 15.39c-.11-.91-.07-1.9.32-2.71.25-.81.71-1.48 1.34-1.96C2.27 10 2.61 10 3 10h.5v-.5a2.5 2.5 0 0 1 5 0V10h.5c.39 0 .73.2.93.44.63.48 1.09 1.15 1.34 1.96.39.81.43 1.8.32 2.71-.19.91-.8 1.61-1.48 1.61a1 1 0 0 1-1-1Zm5.5-7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/>
+  <svg viewBox="0 0 24 24" className="w-4 h-4">
+    <defs>
+      <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#E4405F"/>
+        <stop offset="50%" stopColor="#F77737"/>
+        <stop offset="100%" stopColor="#8338EC"/>
+      </linearGradient>
+    </defs>
+    <g transform="translate(1,1)">
+      <rect x="0" y="0" width="22" height="22" rx="11" fill="url(#ig)"/>
+      <rect x="1" y="1" width="20" height="20" rx="10" fill="white" stroke="white" strokeWidth="1.5"/>
+      <circle cx="12" cy="9" r="4" fill="none" stroke="white" strokeWidth="1.5"/>
+      <circle cx="18" cy="5" r="1.5" fill="white"/>
+    </g>
   </svg>
 )},
 { href: "https://tiktok.com/@hydraxrd", icon: (
