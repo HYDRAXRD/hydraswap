@@ -27,7 +27,13 @@ const SOCIAL_LINKS = [
     <path d="M10 12C8.34315 12 7 13.3431 7 15C7 16.6569 8.34315 18 10 18C11.6569 18 13 16.6569 13 15V6C13.3333 7 14.6 9 17 9" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )},
-  { label: "Website", href: "https://hydraxrd.com", icon: (
+  { href: "https://www.pinterest.com/hydraxrd", icon: (
+  <svg viewBox="-2 -2 24 24" className="w-4 h-4 text-gray-400 fill-current" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin">
+    <path d="M9.355 11.614C9.1 12.99 8.79 14.31 7.866 15c-.284-2.08.419-3.644.745-5.303-.556-.964.067-2.906 1.24-2.427 1.445.588-1.25 3.586.56 3.96 1.888.392 2.66-3.374 1.488-4.6-1.692-1.768-4.927-.04-4.529 2.492.097.62.718.807.248 1.661-1.083-.247-1.406-1.127-1.365-2.3.067-1.92 1.675-3.263 3.289-3.45 2.04-.235 3.954.772 4.219 2.748.297 2.23-.921 4.646-3.103 4.472-.59-.047-.84-.35-1.303-.64z"/>
+    <path d="M4 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4zm0-2h12a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4z"/>
+  </svg>
+)},
+  { href: "https://hydraxrd.com", icon: (
   <svg viewBox="0 0 24 24" className="w-4 h-4 text-gray-400 stroke-current stroke-[1.5]" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="3" y="4" width="18" height="12" rx="1"/>
     <rect x="10" y="16" width="5" height="4.5"/>
@@ -35,7 +41,7 @@ const SOCIAL_LINKS = [
     <line x1="4.5" y1="16.5" x2="14.5" y2="16.5"/>
   </svg>
 )},
-  { label: "Bubbles", href: "https://hydraxrd.com/bubbles", icon: (
+  { href: "https://hydraxrd.com/bubbles", icon: (
   <svg viewBox="0 0 24 24" className="w-4 h-4 text-gray-400 stroke-current stroke-[1.4]" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="16" cy="16" r="5"/>
     <path d="M16 13c.7 0 1.4.35 1.8.9"/>
